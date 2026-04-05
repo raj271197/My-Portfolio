@@ -1,0 +1,72 @@
+.education-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.edu-card {
+    background-color: var(--bg-secondary);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow-card);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: transform var(--transition-normal);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.edu-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+}
+
+.edu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.edu-degree {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 5px;
+}
+
+.edu-school {
+    font-size: 16px;
+    color: var(--text-secondary);
+    font-family: var(--font-main);
+}
+
+.edu-year {
+    font-family: var(--font-mono);
+    /* Keep mono for dates */
+    font-size: 14px;
+    color: var(--text-tertiary);
+    white-space: nowrap;
+}
+
+.cert-list {
+    list-style: none;
+    margin-top: 10px;
+}
+
+.cert-list li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.cert-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-resume);
+    /* Use the lime accent */
+    font-weight: bold;
+}

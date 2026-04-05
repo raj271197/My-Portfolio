@@ -1,0 +1,55 @@
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    border-radius: 4px;
+    /* Slightly rounded */
+    transition: all var(--transition-normal);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    /* Tech feel */
+    cursor: pointer;
+}
+
+/* Variants */
+.btn-primary {
+    background-color: transparent;
+    border: 1px solid var(--accent-primary);
+    color: var(--accent-primary);
+}
+
+.btn-primary:hover {
+    background-color: rgba(100, 255, 218, 0.1);
+    /* Subtle tint */
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: var(--accent-primary);
+    border: 1px solid var(--accent-primary);
+    color: var(--bg-primary);
+    /* Dark text on bright button */
+}
+
+.btn-secondary:hover {
+    background-color: var(--accent-secondary);
+    border-color: var(--accent-secondary);
+    transform: translateY(-2px);
+}
+
+/* Sizes */
+.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: var(--fz-xs);
+}
+
+.btn-md {
+    padding: 0.75rem 1.5rem;
+    font-size: var(--fz-sm);
+}
+
+.btn-lg {
+    padding: 1rem 2rem;
+    font-size: var(--fz-md);
+}

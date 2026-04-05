@@ -1,0 +1,113 @@
+.experience-container {
+    display: flex;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.tabs-list {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 3;
+    width: max-content;
+}
+
+.tab-button {
+    background: transparent;
+    border: none;
+    border-left: 2px solid var(--bg-tertiary);
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    padding: 0 20px;
+    height: 42px;
+    text-align: left;
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+}
+
+.tab-button:hover,
+.tab-button.active {
+    color: var(--accent-primary);
+    background-color: rgba(100, 255, 218, 0.05);
+    /* Slight tint */
+}
+
+.tab-button.active {
+    border-left-color: var(--accent-primary);
+}
+
+.tab-content {
+    margin-left: 30px;
+    width: 100%;
+}
+
+.job-panel h3 {
+    margin-bottom: 5px;
+    font-size: 20px;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.company-name {
+    color: var(--accent-primary);
+}
+
+.job-period {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 25px;
+}
+
+.job-description {
+    list-style: none;
+}
+
+.job-description li {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: var(--text-secondary);
+}
+
+.job-description li::before {
+    content: '▹';
+    position: absolute;
+    left: 0;
+    color: var(--accent-primary);
+}
+
+/* Responseiveness */
+@media (max-width: 600px) {
+    .experience-container {
+        flex-direction: column;
+    }
+
+    .tabs-list {
+        flex-direction: row;
+        overflow-x: auto;
+        width: 100%;
+        margin-bottom: 30px;
+        border-bottom: 2px solid var(--bg-tertiary);
+        /* horizontal line for mobile */
+    }
+
+    .tab-button {
+        border-left: none;
+        border-bottom: 2px solid transparent;
+        /* Prepare for active state */
+        padding: 10px 15px;
+        height: auto;
+    }
+
+    .tab-button.active {
+        border-left: none;
+        border-bottom-color: var(--accent-primary);
+    }
+
+    .tab-content {
+        margin-left: 0;
+    }
+}

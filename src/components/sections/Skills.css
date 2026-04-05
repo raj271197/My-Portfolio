@@ -1,0 +1,31 @@
+.skills-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+}
+
+.category-title {
+    color: var(--text-primary);
+    font-size: 18px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--accent-primary);
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.skill-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.skill-item {
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+    font-size: 14px;
+}
+
+.skill-bullet {
+    color: var(--accent-primary);
+    margin-right: 5px;
+}

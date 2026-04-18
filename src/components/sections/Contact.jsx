@@ -1,283 +1,192 @@
-import React, { useRef, useState, useEffect } from 'react';
-import emailjs from '@emailjs/browser';
+import { useRef, useState } from 'react';
+import { Github, Linkedin, Mail, Phone } from 'lucide-react';
+import emailjs, { emailjsConfig, isEmailjsConfigured } from '../../config/emailjs';
 import Section from '../layout/Section';
 import { persona } from '../../data/content';
-import { Mail, Phone, Linkedin, Github, CheckCircle, AlertCircle } from 'lucide-react';
 import './Contact.css';
 
-// ============================================
-// SETUP INSTRUCTIONS FOR EMAILJS:
-// 1. Go to https://www.emailjs.com/
-// 2. Sign up for a free account
-// 3. Get your PUBLIC KEY from Account > API Keys
-// 4. Create an Email Service (Gmail, Outlook, etc.)
-// 5. Create Email Template with variables: {{from_name}}, {{email}}, {{subject}}, {{message}}
-// 6. Replace the values below:
-const EMAILJS_SERVICE_ID = 'service_xxxxxxxxxxxx'; // Get from EmailJS
-const EMAILJS_TEMPLATE_ID = 'template_xxxxxxxxxxxx'; // Get from EmailJS
-const EMAILJS_PUBLIC_KEY = 'xxxxxxxxxxxxxxxxxxxxxxxx'; // Get from EmailJS Account > API Keys
-// ============================================
-
-// Initialize EmailJS on component mount
-if (EMAILJS_PUBLIC_KEY !== 'xxxxxxxxxxxxxxxxxxxxxxxx') {
-    emailjs.init(EMAILJS_PUBLIC_KEY);
-}
+const initialFormState = {
+  from_name: '',
+  email: '',
+  message: '',
+};
 
 const Contact = () => {
-    const form = useRef();
-    const [status, setStatus] = useState(''); // 'idle', 'sending', 'success', 'error'
-    const [errors, setErrors] = useState({});
-    const [honeypot, setHoneypot] = useState(''); // Spam protection
+  const formRef = useRef(null);
+  const [formValues, setFormValues] = useState(initialFormState);
+  const [errors, setErrors] = useState({});
+  const [status, setStatus] = useState('idle');
+  const [submitMessage, setSubmitMessage] = useState('');
 
-    const validateForm = (formData) => {
-        const newErrors = {};
+  const validate = () => {
+    const nextErrors = {};
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        // Name validation
-        if (!formData.get('from_name')?.trim()) {
-            newErrors.from_name = 'Name is required';
-        }
+    if (!formValues.from_name.trim()) {
+      nextErrors.from_name = 'Please enter your name.';
+    }
 
-        // Email validation
-        const email = formData.get('email')?.trim();
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!email) {
-            newErrors.email = 'Email is required';
-        } else if (!emailRegex.test(email)) {
-            newErrors.email = 'Please enter a valid email';
-        }
+    if (!formValues.email.trim()) {
+      nextErrors.email = 'Please enter your email.';
+    } else if (!emailPattern.test(formValues.email.trim())) {
+      nextErrors.email = 'Please enter a valid email address.';
+    }
 
-        // Subject validation
-        if (!formData.get('subject')?.trim()) {
-            newErrors.subject = 'Subject is required';
-        }
+    if (!formValues.message.trim()) {
+      nextErrors.message = 'Please enter a message.';
+    } else if (formValues.message.trim().length < 20) {
+      nextErrors.message = 'Please add a little more detail so I can respond properly.';
+    }
 
-        // Message validation
-        const message = formData.get('message')?.trim();
-        if (!message) {
-            newErrors.message = 'Message is required';
-        } else if (message.length < 10) {
-            newErrors.message = 'Message must be at least 10 characters';
-        }
+    return nextErrors;
+  };
 
-        return newErrors;
-    };
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormValues((currentValues) => ({ ...currentValues, [name]: value }));
+    setErrors((currentErrors) => ({ ...currentErrors, [name]: '' }));
+  };
 
-    const sendEmail = (e) => {
-        e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-        // Honeypot field check (spam protection)
-        if (honeypot) {
-            console.log('Spam detected');
-            return;
-        }
+    const nextErrors = validate();
 
-        const formData = new FormData(form.current);
-        const newErrors = validateForm(formData);
+    if (Object.keys(nextErrors).length > 0) {
+      setErrors(nextErrors);
+      setStatus('error');
+      setSubmitMessage('Please fix the highlighted fields and try again.');
+      return;
+    }
 
-        if (Object.keys(newErrors).length > 0) {
-            setErrors(newErrors);
-            return;
-        }
+    if (!isEmailjsConfigured) {
+      setStatus('error');
+      setSubmitMessage(
+        'The contact form is not configured yet. Add the EmailJS Vite environment variables before deploying.',
+      );
+      return;
+    }
 
-        setStatus('sending');
-        setErrors({});
+    try {
+      setStatus('sending');
+      setSubmitMessage('');
 
-        // Check if EmailJS is properly configured
-        if (EMAILJS_SERVICE_ID === 'service_xxxxxxxxxxxx') {
-            setStatus('error');
-            setErrors({ submit: 'EmailJS is not configured. Please check your credentials.' });
-            return;
-        }
+      await emailjs.sendForm(emailjsConfig.serviceId, emailjsConfig.templateId, formRef.current, {
+        publicKey: emailjsConfig.publicKey,
+      });
 
-        emailjs
-            .sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form.current, EMAILJS_PUBLIC_KEY)
-            .then(
-                (result) => {
-                    console.log('Email sent:', result.text);
-                    setStatus('success');
-                    form.current.reset();
-                    // Reset success message after 5 seconds
-                    setTimeout(() => setStatus(''), 5000);
-                },
-                (error) => {
-                    console.error('Email error:', error.text);
-                    setStatus('error');
-                    setErrors({ submit: 'Failed to send message. Please try again later.' });
-                }
-            );
-    };
+      setStatus('success');
+      setSubmitMessage('Message sent successfully. I will get back to you soon.');
+      setFormValues(initialFormState);
+      formRef.current?.reset();
+    } catch {
+      setStatus('error');
+      setSubmitMessage('Something went wrong while sending your message. Please try again in a moment.');
+    }
+  };
 
-    return (
-        <Section id="contact" className="contact-section">
-            <div className="contact-container">
-                {/* Header */}
-                <div className="contact-header animate-fade-in-up">
-                    <h2>Get In Touch</h2>
-                    <p>I'm always interested in hearing about new projects and opportunities.</p>
-                </div>
+  return (
+    <Section
+      id="contact"
+      eyebrow="Contact"
+      title="Send a quick message."
+      description="Reach out for full-time roles, freelance work, or product collaborations."
+      className="contact-section"
+    >
+      <div className="contact-grid">
+        <article className="glass-panel contact-card" data-animate="fade-up">
+          <h3>Contact details</h3>
+          <p>
+            I am interested in full-time roles, freelance opportunities, and collaborative product work where strong UI
+            and dependable engineering both matter.
+          </p>
 
-                <div className="contact-content">
-                    {/* Left: Contact Info */}
-                    <div className="contact-info glass-card">
-                        <h3>Contact Information</h3>
+          <div className="contact-list">
+            <a href={`mailto:${persona.email}`}>
+              <Mail size={18} />
+              <span>{persona.email}</span>
+            </a>
+            <a href={`tel:${persona.phone}`}>
+              <Phone size={18} />
+              <span>{persona.phone}</span>
+            </a>
+            <a href={persona.linkedin} target="_blank" rel="noreferrer">
+              <Linkedin size={18} />
+              <span>LinkedIn</span>
+            </a>
+            <a href={persona.github} target="_blank" rel="noreferrer">
+              <Github size={18} />
+              <span>GitHub</span>
+            </a>
+          </div>
 
-                        <div className="info-item animate-fade-in-left delay-100">
-                            <Mail className="icon" />
-                            <div>
-                                <p className="label">Email</p>
-                                <a href={`mailto:${persona.email}`}>{persona.email}</a>
-                            </div>
-                        </div>
+          <div className="contact-availability">
+            <span className="availability-dot" aria-hidden="true" />
+            <span>{persona.availability}</span>
+          </div>
+        </article>
 
-                        <div className="info-item animate-fade-in-left delay-200">
-                            <Phone className="icon" />
-                            <div>
-                                <p className="label">Phone</p>
-                                <a href={`tel:${persona.phone}`}>{persona.phone}</a>
-                            </div>
-                        </div>
+        <form ref={formRef} className="glass-panel contact-form-card" onSubmit={handleSubmit} noValidate data-animate="fade-up">
+          <h3>Send a message</h3>
+          <p className="contact-form-intro">Share the role, project, or opportunity and I will get back to you soon.</p>
 
-                        <div className="info-item animate-fade-in-left delay-300">
-                            <Linkedin className="icon" />
-                            <div>
-                                <p className="label">LinkedIn</p>
-                                <a href={persona.linkedin} target="_blank" rel="noopener noreferrer">
-                                    Connect with me
-                                </a>
-                            </div>
-                        </div>
+          <div className="field-row">
+            <label htmlFor="from_name">Name</label>
+            <input
+              id="from_name"
+              name="from_name"
+              type="text"
+              placeholder="Your name"
+              value={formValues.from_name}
+              onChange={handleChange}
+              aria-invalid={Boolean(errors.from_name)}
+            />
+            {errors.from_name ? <span className="field-error">{errors.from_name}</span> : null}
+          </div>
 
-                        <div className="info-item animate-fade-in-left delay-300">
-                            <Github className="icon" />
-                            <div>
-                                <p className="label">GitHub</p>
-                                <a href={persona.github} target="_blank" rel="noopener noreferrer">
-                                    View my projects
-                                </a>
-                            </div>
-                        </div>
+          <div className="field-row">
+            <label htmlFor="email">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="you@example.com"
+              value={formValues.email}
+              onChange={handleChange}
+              aria-invalid={Boolean(errors.email)}
+            />
+            {errors.email ? <span className="field-error">{errors.email}</span> : null}
+          </div>
 
-                        <p className="availability-status">
-                            <span className="status-dot"></span>
-                            {persona.availability}
-                        </p>
-                    </div>
+          <div className="field-row">
+            <label htmlFor="message">Message</label>
+            <textarea
+              id="message"
+              name="message"
+              rows="5"
+              placeholder="Tell me about the role, project, or opportunity."
+              value={formValues.message}
+              onChange={handleChange}
+              aria-invalid={Boolean(errors.message)}
+            />
+            {errors.message ? <span className="field-error">{errors.message}</span> : null}
+          </div>
 
-                    {/* Right: Contact Form */}
-                    <form ref={form} onSubmit={sendEmail} className="contact-form glass-card animate-fade-in-right">
-                        <h3>Send Me a Message</h3>
+          {submitMessage ? (
+            <p className={`form-feedback ${status === 'success' ? 'is-success' : 'is-error'}`}>{submitMessage}</p>
+          ) : null}
 
-                        {/* Honeypot field (hidden) - spam protection */}
-                        <input
-                            type="text"
-                            name="website"
-                            style={{ display: 'none' }}
-                            value={honeypot}
-                            onChange={(e) => setHoneypot(e.target.value)}
-                            tabIndex="-1"
-                            autoComplete="off"
-                        />
-
-                        {/* Name Field */}
-                        <div className="form-group">
-                            <label htmlFor="from_name">Full Name *</label>
-                            <input
-                                type="text"
-                                id="from_name"
-                                name="from_name"
-                                placeholder="John Doe"
-                                className={errors.from_name ? 'input-error' : ''}
-                            />
-                            {errors.from_name && (
-                                <span className="error-message">{errors.from_name}</span>
-                            )}
-                        </div>
-
-                        {/* Email Field */}
-                        <div className="form-group">
-                            <label htmlFor="email">Email Address *</label>
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                placeholder="john@example.com"
-                                className={errors.email ? 'input-error' : ''}
-                            />
-                            {errors.email && (
-                                <span className="error-message">{errors.email}</span>
-                            )}
-                        </div>
-
-                        {/* Subject Field */}
-                        <div className="form-group">
-                            <label htmlFor="subject">Subject *</label>
-                            <input
-                                type="text"
-                                id="subject"
-                                name="subject"
-                                placeholder="Project Inquiry"
-                                className={errors.subject ? 'input-error' : ''}
-                            />
-                            {errors.subject && (
-                                <span className="error-message">{errors.subject}</span>
-                            )}
-                        </div>
-
-                        {/* Message Field */}
-                        <div className="form-group">
-                            <label htmlFor="message">Message *</label>
-                            <textarea
-                                id="message"
-                                name="message"
-                                rows="5"
-                                placeholder="Tell me about your project..."
-                                className={errors.message ? 'input-error' : ''}
-                            ></textarea>
-                            {errors.message && (
-                                <span className="error-message">{errors.message}</span>
-                            )}
-                        </div>
-
-                        {/* Global Error */}
-                        {errors.submit && (
-                            <div className="alert alert-error">
-                                <AlertCircle size={18} />
-                                <span>{errors.submit}</span>
-                            </div>
-                        )}
-
-                        {/* Success Message */}
-                        {status === 'success' && (
-                            <div className="alert alert-success animate-scale-in">
-                                <CheckCircle size={18} />
-                                <span>Message sent successfully! I'll get back to you soon.</span>
-                            </div>
-                        )}
-
-                        {/* Submit Button */}
-                        <button
-                            type="submit"
-                            className={`btn btn-primary btn-lg contact-submit-btn ${
-                                status === 'sending' ? 'is-loading' : ''
-                            }`}
-                            disabled={status === 'sending'}
-                        >
-                            {status === 'sending' ? (
-                                <>
-                                    <span className="spinner"></span>
-                                    Sending...
-                                </>
-                            ) : (
-                                'Send Message'
-                            )}
-                        </button>
-
-                        <p className="form-note">* Required fields</p>
-                    </form>
-                </div>
-            </div>
-        </Section>
-    );
+          <button
+            type="submit"
+            className="button button-primary contact-submit"
+            disabled={status === 'sending'}
+          >
+            {status === 'sending' ? 'Sending...' : 'Send Message'}
+          </button>
+        </form>
+      </div>
+    </Section>
+  );
 };
 
 export default Contact;

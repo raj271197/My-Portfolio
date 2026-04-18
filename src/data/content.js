@@ -1,202 +1,189 @@
+import projectChat from '../assets/projects/project-chat.svg';
+import projectDesk from '../assets/projects/project-desk.svg';
+import projectTask from '../assets/projects/project-task.svg';
+import projectCloud from '../assets/projects/project-cloud.svg';
 
 export const persona = {
-  name: "Raj Patel",
-  role: "Software Engineer | Technical Support Specialist",
-  location: "Etobicoke, Ontario, Canada",
-  availability: "Open to Full-Time roles",
-  email: "patelrj2711@gmail.com",
-  phone: "+1-437-774-7747",
-  linkedin: "https://linkedin.com/in/raj-patel-27november1997",
-  github: "https://github.com/", // User provided generic link
-  heroHeadline: "Building Scalable Software & Delivering Support Excellence",
-  heroSubheadline: "Customer-focused professional with 5+ years of experience in software engineering and technical support. Skilled in Full-Stack Development, Database Optimization, and delivering high-quality client solutions.",
-  about: {
-    summary: "I am a customer-focused professional with over 5 years of experience in retail marketing and technical support, now pivoting back into Software Engineering. My background includes designing scalable full-stack applications at Logixweb Studio and providing frontline technical support at TP-Link India. I possess a strong ability to adhere to standard operating procedures, ensure safety protocols, and leverage MS Office for accurate data management. Known for effective communication, teamwork, and maintaining organized workspaces, I am currently finishing my Computer Programming diploma at Humber College.",
-    highlights: [
-      "5+ Years Professional Experience",
-      "Full-Stack Dev (Java, Python, SQL)",
-      "Technical Support & Networking",
-      "Agile & Cross-functional Collaboration"
-    ]
-  }
+  name: 'Raj Patel',
+  title: 'Full-Stack Developer',
+  role: 'Junior Full-Stack Developer focused on modern web apps, API integrations, and polished user experiences.',
+  location: 'Etobicoke, Ontario, Canada',
+  availability: 'Open to full-time software engineering opportunities',
+  email: 'patelrj2711@gmail.com',
+  phone: '+1-437-774-7747',
+  linkedin: 'https://linkedin.com/in/raj-patel-27november1997',
+  github: 'https://github.com/raj271197',
+  resumeHref: `${import.meta.env.BASE_URL}resume.pdf`,
+  heroHeadline: 'Building reliable full-stack products with thoughtful UX and clean execution.',
+  heroSummary:
+    'I blend application development, support experience, and hands-on debugging to ship responsive interfaces, integrate APIs, and improve systems from the UI down to the database.',
+  intro:
+    'With experience across full-stack delivery, support operations, and database-backed applications, I bring a practical mindset to product work: build clearly, debug fast, and make the experience feel effortless for the user.',
+  stats: [
+    { label: 'Years of experience', value: '5+' },
+    { label: 'Primary focus', value: 'React, Next.js, APIs' },
+    { label: 'Based in', value: 'Toronto Area' },
+  ],
+  highlights: [
+    'Responsive front-end development with modern React and Next.js',
+    'REST API integration and full-stack workflow ownership',
+    'Database-backed application development with SQL and MongoDB',
+    'Strong debugging, technical support, and customer-facing communication',
+  ],
+  quickFacts: [
+    'Builds accessible interfaces with responsive layouts and clean visual systems',
+    'Comfortable across UI, API, and data layers',
+    'Experienced in Agile collaboration and Git-based delivery',
+    'Brings a support-driven mindset to product quality and edge cases',
+  ],
 };
+
+export const navLinks = [
+  { label: 'About', href: '#about' },
+  { label: 'Skills', href: '#skills' },
+  { label: 'Experience', href: '#experience' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Education', href: '#education' },
+  { label: 'Contact', href: '#contact' },
+];
 
 export const skills = [
   {
-    category: "Languages & Backend",
-    items: ["Java", "Python", "C", "SQL", "JavaScript", "Spring Boot", "Django", "REST APIs", "Socket Programming"]
+    title: 'Frontend',
+    items: ['HTML5', 'CSS3', 'JavaScript', 'React', 'Next.js', 'Responsive Design', 'UI Animation', 'Accessibility'],
   },
   {
-    category: "Databases & Security",
-    items: ["Relational Schema Design", "Query Optimization", "CRUD Operations", "SSL/TLS", "OpenSSL", "TCP/IP", "Network Security"]
+    title: 'Backend',
+    items: ['Java', 'Python', 'Node.js', 'REST APIs', 'Express', 'Spring Boot', 'Authentication', 'Debugging'],
   },
   {
-    category: "Tools & Practices",
-    items: ["Git", "Agile/Scrum", "Debugging", "Clean Code", "MS Office Suite", "Store Operations", "Data Verification"]
+    title: 'Data & Cloud',
+    items: ['MySQL', 'MongoDB', 'SQL Optimization', 'Database Design', 'Azure', 'Firebase', 'Deployment', 'Performance Tuning'],
   },
   {
-    category: "Professional Soft Skills",
-    items: ["Customer Service", "Effective Communication", "Teamwork", "Problem Solving", "Time Management"]
-  }
+    title: 'Workflow',
+    items: ['Git', 'GitHub', 'Agile', 'Testing', 'Documentation', 'Issue Triage', 'Technical Support', 'Cross-team Collaboration'],
+  },
 ];
 
 export const experience = [
   {
-    id: 1,
-    role: "Field Marketing Representative",
-    company: "Kognitive Sales Solutions",
-    period: "Nov 2024 - Present",
-    description: [
-      "Represent President’s Choice Financial by educating in-store customers on financial products, features, and benefits.",
-      "Engage customers through needs-based conversations to understand financial goals and recommend appropriate solutions.",
-      "Consistently deliver high-quality customer service in fast-paced, high-traffic retail environments.",
-      "Collaborate with store management to coordinate daily tasks and ensure compliance with safety protocols."
-    ]
+    role: 'Junior Full Stack Developer',
+    company: 'HTS Engineering',
+    type: 'Part-Time',
+    period: '[December 2025 - Present]',
+    points: [
+      'Assisted in development of web applications using HTML, CSS, JavaScript, React, and Next.js.',
+      'Worked on frontend and backend integration to support smooth feature delivery.',
+      'Built responsive UI components for modern multi-device experiences.',
+      'Integrated REST APIs and supported data flow between client and server.',
+      'Debugged and resolved issues across development workflows.',
+      'Used Git and GitHub for version control and collaboration.',
+      'Supported database operations with MySQL and MongoDB.',
+      'Assisted in testing and deployment activities.',
+    ],
   },
   {
-    id: 2,
-    role: "Software Engineer",
-    company: "Logixweb Studio",
-    period: "Nov 2021 - Feb 2024",
-    description: [
-      "Designed and developed scalable full-stack applications using Java, Python, SQL, HTML, CSS, and JavaScript.",
-      "Built and maintained RESTful APIs and backend services supporting production workflows.",
-      "Designed relational database schemas and optimized SQL queries for performance and integrity.",
-      "Diagnosed and resolved issues across UI, API, and database layers, improving system reliability.",
-      "Collaborated in Agile teams using Git for code reviews and iterative development."
-    ]
+    role: 'Software Engineer',
+    company: 'Logixweb Studio',
+    type: 'Full-Time',
+    period: 'Nov 2021 - Feb 2024',
+    points: [
+      'Designed and developed scalable full-stack applications using Java, Python, SQL, HTML, CSS, and JavaScript.',
+      'Built and maintained RESTful APIs and backend services.',
+      'Designed relational database schemas and optimized SQL queries for performance.',
+      'Diagnosed and resolved issues across UI, API, and database layers.',
+      'Collaborated in Agile teams using Git for delivery and iteration.',
+    ],
   },
   {
-    id: 3,
-    role: "Technical Support Specialist",
-    company: "TP-Link India",
-    period: "Dec 2019 - Oct 2021",
-    description: [
-      "Provided frontline technical support via chat, email, phone, and Slack with a strong focus on first-pass resolution.",
-      "Diagnosed and troubleshot complex networking, cloud, and software-related issues.",
-      "Performed root-cause analysis and collaborated with engineering teams for advanced issue resolution.",
-      "Created and maintained knowledge-base articles and instructional documentation.",
-      "Supported customers in data-driven and cloud-based environments using SQL, Azure, and programming fundamentals."
-    ]
-  }
+    role: 'Technical Support Specialist',
+    company: 'TP-Link India',
+    type: 'Full-Time',
+    period: 'Dec 2019 - Oct 2021',
+    points: [
+      'Provided technical support through chat, email, and phone channels.',
+      'Troubleshot networking, cloud, and software issues for customers.',
+      'Performed root-cause analysis to identify and resolve recurring problems.',
+      'Created documentation and knowledge-base content for support workflows.',
+      'Worked with SQL, Azure, and programming fundamentals while supporting technical cases.',
+    ],
+  },
 ];
 
 export const projects = [
   {
-    id: 1,
-    title: "Secure Chat Application (End-to-End Encrypted)",
-    description: "A real-time messaging application for university students to collaborate on coursework. Features include private messaging, group channels, and file sharing.",
-    techStack: ["Node.js", "Socket.io", "MongoDB", "Express", "React"],
-    repoLink: "https://github.com/raj271197/Secure-Chat-Application",
-    demoLink: "https://github.com/raj271197/Secure-Chat-Application",
-    features: [
-      "End-to-end encrypted messaging for secure communication",
-      "Real-time chat using sockets/WebSockets",
-      "User authentication (login/signup)",
-      "Private messaging with multi-user support",
-      "Fast and reliable client-server architecture"
-    ]
+    title: 'Secure Chat Application',
+    description:
+      'A real-time collaboration platform with secure messaging, multi-user channels, and a fast communication flow built for student teamwork scenarios.',
+    stack: ['React', 'Node.js', 'Express', 'Socket.io', 'MongoDB'],
+    github: 'https://github.com/raj271197/Secure-Chat-Application',
+    demo: 'https://github.com/raj271197/Secure-Chat-Application',
+    image: projectChat,
+    alt: 'Preview artwork for a secure chat application dashboard with messaging panels.',
   },
   {
-    id: 2,
-    title: "EventMate",
-    description: "Cross-platform mobile application for discovering local community events. Integrates with Google Maps API and a custom backend for event curation.",
-    techStack: ["React Native", "Firebase", "Google Maps API", "Expo"],
-    repoLink: "https://github.com/",
-    demoLink: null,
-    features: [
-      "Integrated Google Maps API to visualize event locations effectively.",
-      "Utilized Firebase Auth and Realtime Database for seamless data synchronization.",
-      "Optimized app performance to ensure smooth scrolling on older devices."
-    ]
+    title: 'OpenHelpDesk',
+    description:
+      'A help desk ticketing system with role-based access, OTP authentication, admin workflows, and status tracking designed for IT support operations.',
+    stack: ['Python', 'Flask', 'SQLAlchemy', 'SQLite', 'Bootstrap'],
+    github: 'https://github.com/raj271197/OpenHelpDesk-IT-Help-Desk-Ticketing-System',
+    demo: 'https://github.com/raj271197/OpenHelpDesk-IT-Help-Desk-Ticketing-System',
+    image: projectDesk,
+    alt: 'Preview artwork for an IT help desk application with analytics cards and support tickets.',
   },
   {
-    id: 3,
-    title: "OpenHelpDesk – IT Help Desk Ticketing System",
-    description: "A Flask-based ticketing system for managing IT support requests efficiently. Features secure OTP authentication, role-based access (User/Admin), and real-time ticket tracking. Includes an admin dashboard, priority/status filtering, and a responsive UI with dark/light mode. Built using Flask, SQLAlchemy, Bootstrap, and SQLite, focusing on security and full-stack development.",
-    techStack: ["Python", "Django", "PostgreSQL", "Bootstrap"],
-    repoLink: "https://github.com/raj271197/OpenHelpDesk-IT-Help-Desk-Ticketing-System",
-    demoLink: "https://github.com/raj271197/OpenHelpDesk-IT-Help-Desk-Ticketing-System",
-    features: [
-      "OpenHelpDesk – Key Features",
-      "Secure OTP-based user authentication",
-      "Role-based access (User & Admin)",
-      "Ticket creation, tracking, and updates",
-      "Admin dashboard for managing requests",
-      "Secure password hashing and session management"
-
-    ]
+    title: 'TaskSphere',
+    description:
+      'A productivity interface focused on task flow, dynamic components, and API-driven interactions, wrapped in a modern glassmorphism visual system.',
+    stack: ['Next.js', 'React', 'TypeScript', 'API Integration', 'Modern CSS'],
+    github: 'https://github.com/raj271197/TaskSphere-Advanced-React-Productivity-Platform',
+    demo: 'https://github.com/raj271197/TaskSphere-Advanced-React-Productivity-Platform',
+    image: projectTask,
+    alt: 'Preview artwork for a productivity dashboard with task columns and progress widgets.',
   },
   {
-    id: 4,
-    title: "TaskSphere UI – Key Features",
-    description: "TaskSphere UI is a modern productivity web application built with Next.js and React, designed to deliver a smooth and interactive user experience. It includes core features like task management, dynamic components, and API integration, enhanced with glassmorphism design, gradients, and animations. The project focuses on responsive design, performance, and clean UI/UX while demonstrating strong front-end development and TypeScript skills.",
-    techStack: ["Java", "Spring Boot", "MySQL", "React", "Docker"],
-    repoLink: "https://github.com/raj271197/TaskSphere-Advanced-React-Productivity-Platform",
-    demoLink: "https://github.com/raj271197/TaskSphere-Advanced-React-Productivity-Platform",
-    features: [
-      "Interactive counter with real-time updates",
-      "Todo list with add/remove and keyboard support",
-      "API integration (JSONPlaceholder)",
-      "Animated user profile component",
-      "Glassmorphism UI with gradient design system"
-    ]
+    title: 'CloudFile Manager',
+    description:
+      'A cloud-based file management experience for organizing, sharing, and handling uploads with a scalable architecture and polished UI interactions.',
+    stack: ['React', 'Node.js', 'AWS S3', 'Express', 'Cloud Storage'],
+    github: 'https://github.com/raj271197',
+    demo: 'https://github.com/raj271197',
+    image: projectCloud,
+    alt: 'Preview artwork for a cloud file manager with folders, storage charts, and upload panels.',
   },
-  {
-    id: 5,
-    title: "CloudFile Manager",
-    description: "A secure cloud storage application allowing users to upload, organize, and share files, leveraging AWS S3 for scalable storage.",
-    techStack: ["Node.js", "AWS S3", "Express", "React", "TailwindCSS"],
-    repoLink: "https://github.com/",
-    demoLink: "https://cloudfiles-demo.vercel.app",
-    features: [
-      "Integrated AWS S3 SDK for secure multipart file uploads and downloads.",
-      "Implemented folder structure logic and drag-and-drop file interface.",
-      "Optimized static asset delivery using AWS CloudFront."
-    ]
-  },
-  {
-    id: 6,
-    title: "Restaurant Web App – Description",
-    description: "A full-stack restaurant management system built using Spring Boot and Thymeleaf, designed to manage menu items and categories efficiently. The application includes secure login with role-based access control using Spring Security, along with complete CRUD functionality.",
-    techStack: ["Python", "Flask", "Chart.js", "PostgreSQL", "Redis"],
-    repoLink: "https://github.com/raj271197/BistroLounge-RestaurantApplication",
-    demoLink: null,
-    features: [
-      "Secure login with Spring Security and role-based access (Admin/User)",
-      "CRUD operations for menu items and categories.",
-      "Dynamic Thymeleaf templates with form validation",
-      "MVC architecture for clean code organization",
-      "H2 in-memory database with initialization scripts",
-      "RESTful service endpoints for backend operations",
-      "Git version control for project management"
-    ]
-  }
 ];
 
 export const education = [
   {
-    degree: "Computer Programming Diploma (Honours)",
-    institution: "Humber College",
-    year: "2024 - 2025"
+    title: 'Computer Programming Diploma (Honours)',
+    institution: 'Humber College',
+    period: '2024 - 2025',
+    details: 'Focused on software engineering fundamentals, application development, and practical programming projects.',
   },
   {
-    degree: "BASc, Information Technology",
-    institution: "Collège LaSalle, Montréal",
-    year: "2024"
+    title: 'BASc, Information Technology',
+    institution: 'College LaSalle, Montreal',
+    period: '2024',
+    details: 'Expanded technical foundations in information systems and modern computing environments.',
   },
   {
-    degree: "BCA, Bachlors In Computer Application With Distinction",
-    institution: "CHARUSAT",
-    year: "2016 - 2020"
+    title: 'BCA, Computer Applications',
+    institution: 'CHARUSAT',
+    period: '2016 - 2020',
+    details: 'Graduated with distinction with a strong base in programming, systems, and software delivery.',
   },
-  {
-    degree: "Certifications",
-    items: [
-      "Programming Foundations: Fundamentals",
-      "Career Essentials in Cybersecurity (Microsoft & LinkedIn)",
-      "What Is Generative AI?",
-      "Microsoft Copilot Productivity Tools"
-    ]
-  }
+];
+
+export const certifications = [
+  'Programming Foundations: Fundamentals',
+  'Career Essentials in Cybersecurity',
+  'What Is Generative AI?',
+  'Microsoft Copilot Productivity Tools',
+];
+
+export const socialLinks = [
+  { label: 'GitHub', href: persona.github },
+  { label: 'LinkedIn', href: persona.linkedin },
+  { label: 'Email', href: `mailto:${persona.email}` },
 ];

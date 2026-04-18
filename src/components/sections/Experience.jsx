@@ -1,43 +1,45 @@
-import React, { useState } from 'react';
 import Section from '../layout/Section';
 import { experience } from '../../data/content';
 import './Experience.css';
 
 const Experience = () => {
-    const [activeTab, setActiveTab] = useState(0);
-
-    return (
-        <Section id="experience" title="Where I've Worked" number="04">
-            <div className="experience-container">
-                <div className="tabs-list">
-                    {experience.map((job, index) => (
-                        <button
-                            key={job.id}
-                            className={`tab-button ${activeTab === index ? 'active' : ''}`}
-                            onClick={() => setActiveTab(index)}
-                        >
-                            {job.company}
-                        </button>
-                    ))}
-                </div>
-
-                <div className="tab-content">
-                    <div className="job-panel">
-                        <h3>
-                            {experience[activeTab].role}{' '}
-                            <span className="company-name">@ {experience[activeTab].company}</span>
-                        </h3>
-                        <p className="job-period">{experience[activeTab].period}</p>
-                        <ul className="job-description">
-                            {experience[activeTab].description.map((item, i) => (
-                                <li key={i}>{item}</li>
-                            ))}
-                        </ul>
-                    </div>
-                </div>
+  return (
+    <Section
+      id="experience"
+      eyebrow="Experience"
+      title="Hands-on product, support, and engineering experience."
+      description="Updated with your current and prior roles, with emphasis on full-stack development, debugging, API work, and technical problem solving."
+    >
+      <div className="timeline">
+        {experience.map((job, index) => (
+          <article
+            key={`${job.company}-${job.role}`}
+            className="glass-panel timeline-card"
+            data-animate="fade-up"
+            style={{ transitionDelay: `${index * 80}ms` }}
+          >
+            <div className="timeline-marker" aria-hidden="true" />
+            <div className="timeline-header">
+              <div>
+                <p className="timeline-company">{job.company}</p>
+                <h3>{job.role}</h3>
+              </div>
+              <div className="timeline-meta">
+                <span>{job.type}</span>
+                <span>{job.period}</span>
+              </div>
             </div>
-        </Section>
-    );
+
+            <ul className="timeline-points">
+              {job.points.map((point) => (
+                <li key={point}>{point}</li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </Section>
+  );
 };
 
 export default Experience;

@@ -1,39 +1,40 @@
-import React from 'react';
 import Section from '../layout/Section';
-import { education } from '../../data/content';
+import { certifications, education } from '../../data/content';
 import './Education.css';
 
 const Education = () => {
-    return (
-        <Section id="education" title="Education & Certifications" className="education-section">
-            <div className="education-grid">
-                {education.map((item, index) => (
-                    <div key={index} className="edu-card">
-                        {item.items ? (
-                            /* Certifications Card */
-                            <>
-                                <h3 className="edu-degree">{item.degree}</h3>
-                                <ul className="cert-list">
-                                    {item.items.map((cert, i) => (
-                                        <li key={i}>{cert}</li>
-                                    ))}
-                                </ul>
-                            </>
-                        ) : (
-                            /* Degree Card */
-                            <>
-                                <div className="edu-header">
-                                    <h3 className="edu-degree">{item.degree}</h3>
-                                    <span className="edu-year">{item.year}</span>
-                                </div>
-                                <p className="edu-school">{item.institution}</p>
-                            </>
-                        )}
-                    </div>
-                ))}
-            </div>
-        </Section>
-    );
+  return (
+    <Section
+      id="education"
+      eyebrow="Education"
+      title="Academic foundation backed by ongoing technical learning."
+      description="Education and certifications that support the software engineering, systems, and professional communication side of the portfolio."
+    >
+      <div className="education-grid">
+        <div className="education-column">
+          {education.map((item, index) => (
+            <article key={item.title} className="glass-panel education-card" data-animate="fade-up" style={{ transitionDelay: `${index * 60}ms` }}>
+              <div className="education-topline">
+                <h3>{item.title}</h3>
+                <span>{item.period}</span>
+              </div>
+              <p className="education-school">{item.institution}</p>
+              <p>{item.details}</p>
+            </article>
+          ))}
+        </div>
+
+        <article className="glass-panel certification-card" data-animate="fade-up">
+          <h3>Certifications</h3>
+          <ul className="feature-list">
+            {certifications.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </article>
+      </div>
+    </Section>
+  );
 };
 
 export default Education;

@@ -1,57 +1,84 @@
-import React, { useState } from 'react';
-import { Menu, X } from 'lucide-react';
-import { persona } from '../../data/content';
+import { useEffect, useState } from 'react';
+import { Menu, MoonStar, SunMedium, X } from 'lucide-react';
+import { navLinks, persona } from '../../data/content';
+import ResumeDownloadButton from '../ui/ResumeDownloadButton';
 import './Navbar.css';
 
-const Navbar = () => {
-    const [isOpen, setIsOpen] = useState(false);
+const Navbar = ({ theme, onToggleTheme, resumeVariant }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
-    const navLinks = [
-        { name: 'Resume', href: '/resume.pdf', external: true }, // Mark as external/file
-        { name: 'Projects', href: '#projects' },
-        { name: 'Contact', href: '#contact' },
-        { name: 'Personal', href: '#about' }, // Mapping 'Personal' to About as per ref
-    ];
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 24);
 
-    return (
-        <nav className="navbar">
-            <div className="container nav-container">
-                <div className="nav-brand">
-                    <h1 className="nav-name">{persona.name}</h1>
-                    <span className="nav-role">Junior Software Developer</span>
-                </div>
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
-                {/* Desktop Menu */}
-                <div className="desktop-menu">
-                    {navLinks.map((link, index) => (
-                        <React.Fragment key={index}>
-                            <a
-                                href={link.href}
-                                className="nav-link"
-                                target={link.external ? "_blank" : undefined}
-                                rel={link.external ? "noopener noreferrer" : undefined}
-                            >
-                                {link.name}
-                            </a>
-                            {index < navLinks.length - 1 && <span className="nav-divider">|</span>}
-                        </React.Fragment>
-                    ))}
-                </div>
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-                {/* Mobile Toggle */}
-                <div className="mobile-toggle" onClick={() => setIsOpen(!isOpen)}>
-                    {isOpen ? <X size={24} color="#000" /> : <Menu size={24} color="#000" />}
-                </div>
+  const closeMenu = () => setIsOpen(false);
 
-                {/* Mobile Menu */}
-                <div className={`mobile-menu ${isOpen ? 'open' : ''}`}>
-                    {navLinks.map((link) => (
-                        <a key={link.name} href={link.href} onClick={() => setIsOpen(false)}>{link.name}</a>
-                    ))}
-                </div>
-            </div>
+  return (
+    <header className={`site-header ${isScrolled ? 'is-scrolled' : ''}`}>
+      <div className="container navbar-shell">
+        <a className="brand-mark" href="#top" aria-label="Go to top of portfolio">
+          <span className="brand-orb" aria-hidden="true" />
+          <div>
+            <strong>{persona.name}</strong>
+            <span>{persona.title}</span>
+          </div>
+        </a>
+
+        <nav className="desktop-nav" aria-label="Primary navigation">
+          {navLinks.map((link) => (
+            <a key={link.href} href={link.href} className="nav-item">
+              {link.label}
+            </a>
+          ))}
+          <ResumeDownloadButton variant={resumeVariant} className="button button-secondary nav-resume">
+            Resume
+          </ResumeDownloadButton>
+          <button type="button" className="theme-switch" onClick={onToggleTheme} aria-label="Toggle color theme">
+            {theme === 'dark' ? <SunMedium size={18} /> : <MoonStar size={18} />}
+          </button>
         </nav>
-    );
+
+        <div className="mobile-nav-actions">
+          <button type="button" className="theme-switch" onClick={onToggleTheme} aria-label="Toggle color theme">
+            {theme === 'dark' ? <SunMedium size={18} /> : <MoonStar size={18} />}
+          </button>
+          <button
+            type="button"
+            className="menu-toggle"
+            onClick={() => setIsOpen((open) => !open)}
+            aria-expanded={isOpen}
+            aria-controls="mobile-navigation"
+            aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          >
+            {isOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
+      </div>
+
+      <div id="mobile-navigation" className={`mobile-drawer ${isOpen ? 'is-open' : ''}`}>
+        <nav className="mobile-nav" aria-label="Mobile navigation">
+          {navLinks.map((link) => (
+            <a key={link.href} href={link.href} className="mobile-nav-item" onClick={closeMenu}>
+              {link.label}
+            </a>
+          ))}
+          <ResumeDownloadButton
+            variant={resumeVariant}
+            className="button button-primary mobile-resume"
+            onAfterClick={closeMenu}
+          >
+            View Resume
+          </ResumeDownloadButton>
+        </nav>
+      </div>
+    </header>
+  );
 };
 
 export default Navbar;

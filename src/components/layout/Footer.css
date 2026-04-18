@@ -1,137 +1,50 @@
-/* ============================================
-   FOOTER SECTION
-   ============================================ */
-
-.footer {
-    padding: var(--spacing-2xl) 0;
-    border-top: 1px solid var(--bg-tertiary);
-    background: var(--bg-primary);
-    transition: background-color var(--transition-normal);
+.site-footer {
+  position: relative;
+  z-index: 1;
+  padding: 0 0 2rem;
 }
 
-.footer-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: var(--spacing-lg);
+.footer-shell {
+  padding: 2rem 1.2rem;
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-lg);
+  background: var(--bg-elevated);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(16px);
+  display: grid;
+  gap: 1rem;
 }
 
-.footer-left {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-sm);
+.footer-title {
+  margin: 0 0 0.4rem;
+  font-weight: 700;
 }
 
-.footer-left p {
-    font-size: var(--fs-sm);
-    color: var(--text-secondary);
-    margin: 0;
-    transition: color var(--transition-normal);
+.footer-copy,
+.footer-note {
+  margin: 0;
+  color: var(--text-muted);
 }
 
-.footer-left p:hover {
-    color: var(--accent-primary);
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
-.copyright {
-    font-size: var(--fs-xs);
-    color: var(--text-tertiary);
+.footer-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  border: 1px solid var(--surface-border);
+  background: rgba(255, 255, 255, 0.05);
+  transition: transform var(--transition), border-color var(--transition);
 }
 
-.footer-right {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-lg);
-}
-
-/* ============================================
-   THEME TOGGLE BUTTON
-   ============================================ */
-
-.theme-toggle {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-    padding: var(--spacing-sm) var(--spacing-md);
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: var(--radius-md);
-    color: var(--text-primary);
-    cursor: pointer;
-    font-weight: 600;
-    font-size: var(--fs-sm);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    transition: all var(--transition-normal);
-    backdrop-filter: blur(10px);
-}
-
-.theme-toggle:hover {
-    background: var(--accent-primary);
-    color: white;
-    border-color: var(--accent-primary);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-card);
-}
-
-.theme-toggle:active {
-    transform: translateY(0);
-}
-
-.theme-toggle svg {
-    width: 18px;
-    height: 18px;
-    transition: transform var(--transition-normal);
-}
-
-.theme-toggle:hover svg {
-    transform: rotate(180deg) scale(1.1);
-}
-
-.theme-label {
-    display: none;
-}
-
-/* ============================================
-   RESPONSIVE
-   ============================================ */
-
-@media (max-width: 768px) {
-    .footer {
-        padding: var(--spacing-lg) 0;
-    }
-
-    .footer-content {
-        flex-direction: column;
-        justify-content: center;
-        text-align: center;
-    }
-
-    .footer-left {
-        text-align: center;
-    }
-
-    .footer-right {
-        justify-content: center;
-    }
-
-    .theme-label {
-        display: inline;
-    }
-}
-
-@media (max-width: 480px) {
-    .footer-left p {
-        font-size: var(--fs-xs);
-    }
-
-    .theme-toggle {
-        padding: var(--spacing-xs) var(--spacing-sm);
-        font-size: var(--fs-xs);
-    }
-
-    .theme-label {
-        display: none;
-    }
+.footer-links a:hover {
+  transform: translateY(-2px);
+  border-color: rgba(149, 240, 255, 0.4);
 }

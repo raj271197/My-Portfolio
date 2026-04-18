@@ -1,72 +1,59 @@
 .education-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 25px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 1.25rem;
 }
 
-.edu-card {
-    background-color: var(--bg-secondary);
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: var(--shadow-card);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    transition: transform var(--transition-normal);
-    display: flex;
+.education-column {
+  display: grid;
+  gap: 1rem;
+}
+
+.education-card,
+.certification-card {
+  padding: 1.45rem;
+  border-radius: var(--radius-lg);
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+
+.education-card:hover,
+.certification-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-strong);
+  border-color: rgba(149, 240, 255, 0.24);
+}
+
+.education-topline {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.education-topline h3,
+.certification-card h3 {
+  margin: 0;
+}
+
+.education-topline span {
+  color: var(--text-soft);
+  font-size: 0.92rem;
+}
+
+.education-school {
+  margin: 0.55rem 0 0.65rem;
+  color: var(--primary-strong);
+  font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  .education-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .education-topline {
     flex-direction: column;
-    justify-content: center;
-}
-
-.edu-card:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-hover);
-}
-
-.edu-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 10px;
-}
-
-.edu-degree {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: 5px;
-}
-
-.edu-school {
-    font-size: 16px;
-    color: var(--text-secondary);
-    font-family: var(--font-main);
-}
-
-.edu-year {
-    font-family: var(--font-mono);
-    /* Keep mono for dates */
-    font-size: 14px;
-    color: var(--text-tertiary);
-    white-space: nowrap;
-}
-
-.cert-list {
-    list-style: none;
-    margin-top: 10px;
-}
-
-.cert-list li {
-    position: relative;
-    padding-left: 20px;
-    margin-bottom: 8px;
-    font-size: 14px;
-    color: var(--text-secondary);
-}
-
-.cert-list li::before {
-    content: '✓';
-    position: absolute;
-    left: 0;
-    color: var(--color-resume);
-    /* Use the lime accent */
-    font-weight: bold;
+  }
 }
